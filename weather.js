@@ -28,5 +28,4 @@ async function fetchWeather() {
     }
 }
 
-// Panggil fungsi saat halaman selesai dimuat
 document.addEventListener("DOMContentLoaded", fetchWeather);
