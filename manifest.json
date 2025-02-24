@@ -4,7 +4,9 @@
   "version": "1.0",
   "description": "A sidebar with a to-do list and word definition feature",
   "permissions": ["storage", "contextMenus", "scripting", "activeTab"],
-  "host_permissions": ["https://api.dictionaryapi.dev/*"],
+  "host_permissions": ["https://api.dictionaryapi.dev/*",
+                       "https://api.openweathermap.org/*",
+                       "https://api.ipgeolocation.io/*"],
   "background": {
     "service_worker": "background.js",
     "type":"module"
