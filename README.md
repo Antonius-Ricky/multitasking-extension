@@ -19,7 +19,7 @@ Multitasking Extension adalah sebuah ekstensi peramban yang dirancang untuk memb
 - Aktifkan "Mode pengembang" di pojok kanan atas.
 - Klik "Muat tanpa kompresi" dan pilih folder hasil clone dari repositori ini.
 
-**Penggunaan**
+## Penggunaan
 - Membuka Ekstensi: Klik ikon Multitasking Extension di bilah alat peramban Anda.
 - Menambahkan Tugas: Navigasi ke tab "To-Do List" dan tambahkan tugas baru.
 - Melihat Cuaca: Buka tab "Weather" untuk melihat informasi cuaca terkini.
