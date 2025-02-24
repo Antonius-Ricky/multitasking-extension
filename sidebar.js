@@ -44,7 +44,12 @@ function showSidebar() {
           <div id="sidebar-tools">
             <h3>Tools</h3>
             <div class="tool-buttons">
-              <button id="weather-btn" class="icon-box">
+              <button id="weather-btn" class="btn btn-primary">Check Weather</button>
+                <script>
+                  document.getElementById("weather-btn").addEventListener("click", function() {
+                      window.open("weather.html", "_blank");
+                  });
+                </script>
                 <i class="ri-cloud-line"></i> Weather
               </button>
               <button id="currency-btn" class="icon-box">
