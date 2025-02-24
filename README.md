@@ -20,7 +20,7 @@ Multitasking Extension adalah sebuah ekstensi peramban yang dirancang untuk memb
 - Klik "Muat tanpa kompresi" dan pilih folder hasil clone dari repositori ini.
 
 **Penggunaan**
-Membuka Ekstensi: Klik ikon Multitasking Extension di bilah alat peramban Anda.
-Menambahkan Tugas: Navigasi ke tab "To-Do List" dan tambahkan tugas baru.
-Melihat Cuaca: Buka tab "Weather" untuk melihat informasi cuaca terkini.
-Konversi Mata Uang: Gunakan tab "Currency Converter" untuk mengonversi antara berbagai mata uang.
+- Membuka Ekstensi: Klik ikon Multitasking Extension di bilah alat peramban Anda.
+- Menambahkan Tugas: Navigasi ke tab "To-Do List" dan tambahkan tugas baru.
+- Melihat Cuaca: Buka tab "Weather" untuk melihat informasi cuaca terkini.
+- Konversi Mata Uang: Gunakan tab "Currency Converter" untuk mengonversi antara berbagai mata uang.
