@@ -44,7 +44,7 @@ function showSidebar() {
           <div id="sidebar-tools">
             <h3>Tools</h3>
             <div class="tool-buttons">
-              <button id="weather-btn" class="btn btn-primary">Check Weather</button>
+              <button id="weather-btn" class="icon-box">Weather</button>
                 <script>
                   document.getElementById("weather-btn").addEventListener("click", function() {
                       window.open("weather.html", "_blank");
