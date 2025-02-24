@@ -14,11 +14,12 @@ Multitasking Extension adalah sebuah ekstensi peramban yang dirancang untuk memb
 
    ```bash
    git clone https://github.com/Antonius-Ricky/multitasking-extension.git
-Muat ekstensi ke peramban Anda:
-Buka chrome://extensions/ di Google Chrome.
-Aktifkan "Mode pengembang" di pojok kanan atas.
-Klik "Muat tanpa kompresi" dan pilih folder hasil clone dari repositori ini.
-Penggunaan
+2. **Muat ekstensi ke peramban Anda:**
+- Buka chrome://extensions/ di Google Chrome.
+- Aktifkan "Mode pengembang" di pojok kanan atas.
+- Klik "Muat tanpa kompresi" dan pilih folder hasil clone dari repositori ini.
+
+**Penggunaan**
 Membuka Ekstensi: Klik ikon Multitasking Extension di bilah alat peramban Anda.
 Menambahkan Tugas: Navigasi ke tab "To-Do List" dan tambahkan tugas baru.
 Melihat Cuaca: Buka tab "Weather" untuk melihat informasi cuaca terkini.
