@@ -1,0 +1,154 @@
+#my-sidebar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 350px;
+  height: 100vh; 
+  background: #1E1E2E; 
+  border-left: 1px solid #555;
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  font-family: "Poppins", sans-serif;
+  color: #FFFFFF;
+  transition: transform 0.3s ease-in-out;
+}
+
+
+#sidebar-header {
+  background: #7D3C98;
+  color: white;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#close-sidebar {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#close-sidebar:hover {
+  color: #D8BFD8;
+}
+
+#sidebar-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #D8BFD8;
+}
+
+#task-list {
+  list-style: none;
+  padding: 0;
+}
+
+#task-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #2C2C3E;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  transition: 0.3s;
+}
+
+#task-list li:hover {
+  background: #3E3E5E;
+}
+
+#task-input {
+  width: 95%;
+  padding: 10px;
+  background: #2C2C3E;
+  border: 1px solid #555;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+#add-task {
+  width: 100%;
+  padding: 10px;
+  background: #7D3C98;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#add-task:hover {
+  background: #9B59B6;
+}
+
+.delete-task {
+  background: none;
+  border: none;
+  color: #E74C3C;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.delete-task:hover {
+  color: #FF6B6B;
+}
+
+#sidebar-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+#sidebar-content::-webkit-scrollbar-thumb {
+  background: #7D3C98;
+  border-radius: 10px;
+}
+
+#sidebar-content::-webkit-scrollbar-track {
+  background: #2C2C3E;
+}
+
+.tool-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+}
+
+.icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: #7D3C98;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+}
+
+.icon-box i {
+  font-size: 20px;
+}
