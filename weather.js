@@ -1,33 +1,32 @@
-document.addEventListener("DOMContentLoaded", () => {
+async function fetchWeather() {
     const apiKey = "c5353e5225f64d51895f9dde3389ca97";
-    
-    function fetchWeather(lat, lon) {
-        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+    try {
+        const response = await fetch("https://ipapi.co/json/");
+        const locationData = await response.json();
+        const lat = locationData.latitude;
+        const lon = locationData.longitude;
         
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("temp").innerText = `${Math.round(data.main.temp)}°C`;
-                document.getElementById("location").innerText = data.name;
-                document.getElementById("cloud_info").innerText = data.weather[0].description;
-                document.getElementById("wind_speed").innerText = `${data.wind.speed} km/h`;
-                document.getElementById("pressure").innerText = `${data.main.pressure} hPa`;
-                document.getElementById("humidity").innerText = `${data.main.humidity}%`;
-            })
-            .catch(error => console.error("Error fetching weather data:", error));
-    }
-    
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(position => {
-                fetchWeather(position.coords.latitude, position.coords.longitude);
-            }, () => {
-                console.error("Geolocation permission denied.");
-            });
+        const weatherResponse = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
+        );
+        const weatherData = await weatherResponse.json();
+
+        if (weatherData.cod === 200) {
+            document.getElementById("weather-info").innerHTML = `
+                <h3>Weather in ${weatherData.name}</h3>
+                <p>${weatherData.weather[0].description}</p>
+                <p>🌡 Temp: ${weatherData.main.temp}°C</p>
+                <p>💨 Wind: ${weatherData.wind.speed} km/h</p>
+                <p>🌅 Humidity: ${weatherData.main.humidity}%</p>
+            `;
         } else {
-            console.error("Geolocation is not supported by this browser.");
+            document.getElementById("weather-info").innerHTML = `<p>Error fetching weather data</p>`;
         }
+    } catch (error) {
+        console.error("Error fetching weather:", error);
+        document.getElementById("weather-info").innerHTML = `<p>Failed to load weather data</p>`;
     }
-    
-    getLocation();
-});
+}
+
+// Panggil fungsi saat halaman selesai dimuat
+document.addEventListener("DOMContentLoaded", fetchWeather);
