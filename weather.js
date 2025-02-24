@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("pressure").innerText = `${data.main.pressure} hPa`;
             document.getElementById("humidity").innerText = `${data.main.humidity}%`;
 
-            // Menyesuaikan waktu sesuai zona WIB (GMT+7)
             const now = new Date();
             now.setHours(now.getUTCHours() + 7);
             document.getElementById("time").innerText = now.toLocaleString("id-ID", {
