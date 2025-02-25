@@ -11,7 +11,7 @@ if (!document.getElementById("floating-icon")) {
     floatingButton.style.borderRadius = "50%";
     floatingButton.style.boxShadow = "0 2px 5px rgba(0,0,0,0.3)";
     floatingButton.style.backgroundColor = "#fff";
-    floatingButton.style.display = "none"; 
+    floatingButton.style.display = "none";
     floatingButton.style.justifyContent = "center";
     floatingButton.style.alignItems = "center";
     floatingButton.style.zIndex = "10000";
@@ -19,7 +19,7 @@ if (!document.getElementById("floating-icon")) {
     document.body.appendChild(floatingButton);
 
     floatingButton.addEventListener("click", () => {
-        floatingButton.style.display = "none"; 
+        floatingButton.style.display = "none";
         showSidebar();
     });
 }
@@ -44,12 +44,7 @@ function showSidebar() {
           <div id="sidebar-tools">
             <h3>Tools</h3>
             <div class="tool-buttons">
-              <button id="weather-btn" class="icon-box">Weather</button>
-                <script>
-                  document.getElementById("weather-btn").addEventListener("click", function() {
-                      window.open("weather.html", "_blank");
-                  });
-                </script>
+              <button id="weather-btn" class="icon-box">
                 <i class="ri-cloud-line"></i> Weather
               </button>
               <button id="currency-btn" class="icon-box">
@@ -58,8 +53,6 @@ function showSidebar() {
             </div>
           </div>
         `;
-
-
 
         document.body.appendChild(sidebar);
 
@@ -120,20 +113,30 @@ function showSidebar() {
         document.getElementById("close-sidebar").addEventListener("click", () => {
             sidebar.remove();
             chrome.storage.local.set({ sidebarOpen: false });
-            document.getElementById("floating-icon").style.display = "flex"; 
+            document.getElementById("floating-icon").style.display = "flex";
         });
 
-        document.getElementById("weather-btn").addEventListener("click", async () => {
-            try {
-                await chrome.scripting.executeScript({
-                    target: { tabId: (await chrome.tabs.query({ active: true, currentWindow: true }))[0].id },
-                    files: ["weather.js"]
-                });
-            } catch (error) {
-                console.error("Error injecting weather.js:", error);
-            }
+        document.getElementById("weather-btn").addEventListener("click", () => {
+            chrome.runtime.sendMessage({ action: "getWeather" }, (response) => {
+                if (response && response.success) {
+                    displayWeather(response.data);
+                } else {
+                    console.error("Failed to retrieve weather data:", response?.error);
+                }
+            });
         });
-
+        
+        function displayWeather(weather) {
+            if (!weather) return;
+        
+            alert(`Weather in ${weather.name}:
+            🌡️ Temperature: ${Math.round(weather.main.temp)}°C
+            🌬️ Wind Speed: ${weather.wind.speed} km/h
+            💧 Humidity: ${weather.main.humidity}%
+            ☁️ Condition: ${weather.weather[0].description.charAt(0).toUpperCase() + weather.weather[0].description.slice(1)}`)
+            showAlert(message);
+        }
+        
         document.getElementById("currency-btn").addEventListener("click", async () => {
             try {
                 await chrome.scripting.executeScript({
@@ -153,6 +156,6 @@ chrome.storage.local.get(["sidebarOpen"], (data) => {
     if (data.sidebarOpen) {
         showSidebar();
     } else {
-        document.getElementById("floating-icon").style.display = "flex"; 
+        document.getElementById("floating-icon").style.display = "flex";
     }
 });
