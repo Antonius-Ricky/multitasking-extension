@@ -1,24 +1,29 @@
 {
-  "manifest_version": 3,
-  "name": "Multitasking Sidebar",
-  "version": "1.0",
-  "description": "A sidebar with a to-do list and word definition feature",
-  "permissions": ["storage", "contextMenus", "scripting", "activeTab"],
-  "host_permissions": ["https://api.dictionaryapi.dev/*",
-                       "https://api.openweathermap.org/*",
-                       "https://api.ipgeolocation.io/*"],
-  "background": {
-    "service_worker": "background.js",
-    "type":"module"
-  },
-  "action": {
-    "default_icon": "icons/icon48.png"
-  },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["sidebar.js"],
-      "css": ["sidebar.css"]
+    "manifest_version": 3,
+    "name": "Multitasking Sidebar",
+    "version": "1.0",
+    "description": "A sidebar with a to-do list and word definition feature",
+    "permissions": ["storage", "contextMenus", "scripting", "activeTab"],
+    "host_permissions": [
+      "https://api.dictionaryapi.dev/*",
+      "https://api.ipgeolocation.io/*",
+      "https://api.openweathermap.org/*"
+    ],
+    "background": {
+      "service_worker": "background.js",
+      "type":"module"
+    },
+    "action": {
+      "default_icon": "icons/icon48.png"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["sidebar.js"],
+        "css": ["sidebar.css"]
+      }
+    ],
+    "content_security_policy": {
+      "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
     }
-  ]
-}
+  }
