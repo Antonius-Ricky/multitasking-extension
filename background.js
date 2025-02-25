@@ -37,6 +37,53 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     }
   }
 });
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "getWeather") {
+      fetchWeatherData().then(data => {
+          sendResponse({ success: true, data });
+      }).catch(error => {
+          sendResponse({ success: false, error: error.message });
+      });
+      return true; 
+  }
+});
+
+async function fetchWeatherData() {
+  try {
+      const ipData = await getIP();
+      if (!ipData || !ipData.latitude || !ipData.longitude) {
+          throw new Error("Failed to get location.");
+      }
+
+      const lat = ipData.latitude;
+      const lon = ipData.longitude;
+      const API_KEY = '47e28d589c912d35b8aed44a6681c3c2';
+
+      const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`);
+      if (!response.ok) {
+          throw new Error(`Weather API error! Status: ${response.status}`);
+      }
+
+      return await response.json();
+  } catch (error) {
+      console.error("Weather fetch error:", error);
+      return null;
+  }
+}
+
+async function getIP() {
+  try {
+      const API_KEY = 'c5353e5225f64d51895f9dde3389ca97';
+      const response = await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}`);
+      if (!response.ok) {
+          throw new Error(`IP API error! Status: ${response.status}`);
+      }
+      return await response.json();
+  } catch (error) {
+      console.error("IP fetch error:", error);
+      return null;
+  }
+}
 
 
 function displayPopup(word, definition, pronunciation) {
@@ -92,4 +139,3 @@ chrome.runtime.onStartup.addListener(() => {
       }
   });
 });
-
