@@ -146,6 +146,12 @@ function displayWeatherPopup(weatherData) {
   const humidity = main?.humidity ? `${main.humidity}%` : "N/A";
   const windSpeed = wind?.speed ? `${wind.speed} km/h` : "N/A";
 
+  // Correctly fetch image URLs
+  const thermometerIcon = chrome.runtime.getURL("images/thermometer.png");
+  const windIcon = chrome.runtime.getURL("images/Wind.png");
+  const humidityIcon = chrome.runtime.getURL("images/Humidity.png");
+  const cloudIcon = chrome.runtime.getURL("images/cloud.png");
+
   const div = document.createElement("div");
   div.id = "weather-popup";
   div.style.position = "fixed";
@@ -163,10 +169,22 @@ function displayWeatherPopup(weatherData) {
 
   div.innerHTML = `
     <strong style="font-size: 16px; color: #a144db;">Weather in ${name}</strong>
-    <p style="margin: 5px 0; font-size: 14px;">🌡️ <strong>Temperature:</strong> ${temperature}</p>
-    <p style="margin: 5px 0; font-size: 14px;">🌬️ <strong>Wind Speed:</strong> ${windSpeed}</p>
-    <p style="margin: 5px 0; font-size: 14px;">💧 <strong>Humidity:</strong> ${humidity}</p>
-    <p style="margin: 5px 0; font-size: 14px;">☁️ <strong>Condition:</strong> ${condition}</p>
+    <p style="margin: 5px 0; font-size: 14px;">
+      <img src="${thermometerIcon}" alt="Temperature" width="25"> 
+      <strong>Temperature:</strong> ${temperature}
+    </p>
+    <p style="margin: 5px 0; font-size: 14px;">
+      <img src="${windIcon}" alt="Wind Speed" width="25"> 
+      <strong>Wind Speed:</strong> ${windSpeed}
+    </p>
+    <p style="margin: 5px 0; font-size: 14px;">
+      <img src="${humidityIcon}" alt="Humidity" width="25"> 
+      <strong>Humidity:</strong> ${humidity}
+    </p>
+    <p style="margin: 5px 0; font-size: 14px;">
+      <img src="${cloudIcon}" alt="Humidity" width="25"> 
+      <strong>Condition:</strong> ${condition}
+    </p>
     <button id="close-weather-popup" style="
       margin-top: 10px;
       padding: 5px 10px;
@@ -181,6 +199,7 @@ function displayWeatherPopup(weatherData) {
 
   document.body.appendChild(div);
   document.getElementById("close-weather-popup").addEventListener("click", () => div.remove());
+
 }
 
 
