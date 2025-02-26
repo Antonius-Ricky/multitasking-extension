@@ -18,6 +18,8 @@ if (!document.getElementById("floating-icon")) {
     
     document.body.appendChild(floatingButton);
 
+
+
     floatingButton.addEventListener("click", () => {
         floatingButton.style.display = "none"; 
         showSidebar();
@@ -27,6 +29,8 @@ if (!document.getElementById("floating-icon")) {
 function showSidebar() {
     if (!document.getElementById("my-sidebar")) {
         const sidebar = document.createElement("div");
+        const cloudLogo = chrome.runtime.getURL("images/cloud_logo.png");
+        const currencyLogo = chrome.runtime.getURL("images/currency.png");
         sidebar.id = "my-sidebar";
         sidebar.innerHTML = `
           <div id="sidebar-header">
@@ -45,10 +49,10 @@ function showSidebar() {
             <h3>Tools</h3>
             <div class="tool-buttons">
               <button id="weather-btn" class="icon-box">
-                <i class="ri-cloud-line"></i> Weather
+                <img src="${cloudLogo}" alt="Cloud Logo" width="25"> 
               </button>
               <button id="currency-btn" class="icon-box">
-                <i class="ri-exchange-dollar-line"></i> Currency
+                <img src="${currencyLogo}" alt="Cloud Logo" width="25"> 
               </button>
             </div>
           </div>
