@@ -52,7 +52,7 @@ function showSidebar() {
                 <img src="${cloudLogo}" alt="Cloud Logo" width="25"> 
               </button>
               <button id="currency-btn" class="icon-box">
-                <img src="${currencyLogo}" alt="Cloud Logo" width="25"> 
+                <img src="${currencyLogo}" alt="Currency Logo" width="25"> 
               </button>
             </div>
           </div>
