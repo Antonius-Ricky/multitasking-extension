@@ -201,6 +201,37 @@ function displayWeatherPopup(weatherData) {
   document.getElementById("close-weather-popup").addEventListener("click", () => div.remove());
 
 }
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === "convertCurrency") {
+      const { amount, fromCurrency, toCurrency } = message;
+      const apiKey = "99b8f8edee94d47ace3b72f3";
+      const url = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${fromCurrency}`;
+
+      console.log("Fetching currency conversion:", { amount, fromCurrency, toCurrency });
+
+      fetch(url)
+          .then(response => response.json())
+          .then(data => {
+              console.log("API Response:", data);
+
+              if (data.conversion_rates && data.conversion_rates[toCurrency]) {
+                  const rate = data.conversion_rates[toCurrency];
+                  const convertedAmount = (amount * rate).toFixed(2);
+
+                  sendResponse({ success: true, convertedAmount, rate });
+              } else {
+                  sendResponse({ success: false, error: "Conversion rate not found" });
+              }
+          })
+          .catch(error => {
+              console.error("Error fetching currency data:", error);
+              sendResponse({ success: false, error: error.message });
+          });
+        }
+      return true;
+  });
+  
+
 
 
 chrome.runtime.onStartup.addListener(() => {
