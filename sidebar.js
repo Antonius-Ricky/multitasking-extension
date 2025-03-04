@@ -128,33 +128,42 @@ function showSidebar() {
         
 
         document.getElementById("currency-btn").addEventListener("click", () => {
-            const amount = prompt("Enter amount in USD:"); 
+            const amount = prompt("Enter amount in USD:");
             if (!amount || isNaN(amount)) {
-                alert("Please enter a valid number.");
+                console.log("Invalid input. Please enter a valid number.");
                 return;
             }
         
-            chrome.runtime.sendMessage({ 
+            chrome.runtime.sendMessage({
                 action: "convertCurrency",
-                amount: parseFloat(amount), 
+                amount: parseFloat(amount),
                 fromCurrency: "USD",
                 toCurrency: "IDR"
             }, (response) => {
                 console.log("Currency conversion response:", response);
-            
+        
                 if (response && response.success) {
-                    alert(`Converted Amount: ${response.convertedAmount} IDR\nExchange Rate: 1 USD = ${response.rate} IDR`);
+                    // Menampilkan hasil konversi di dalam sidebar
+                    const resultDiv = document.getElementById("conversion-result");
+                    if (resultDiv) {
+                        resultDiv.innerHTML = `
+                            <p><strong>Converted Amount:</strong> ${response.convertedAmount} IDR</p>
+                            <p><strong>Exchange Rate:</strong> 1 USD = ${response.rate} IDR</p>
+                        `;
+                    }
                 } else {
-                    alert(`Failed to convert currency."}`);
+                    console.log("Failed to convert currency.");
                 }
             });
-        
         });
+        
+        
+        };
         
 
         chrome.storage.local.set({ sidebarOpen: true });
     }
-}
+
 
 chrome.storage.local.get(["sidebarOpen"], (data) => {
     if (data.sidebarOpen) {
