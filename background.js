@@ -218,6 +218,17 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                   const rate = data.conversion_rates[toCurrency];
                   const convertedAmount = (amount * rate).toFixed(2);
 
+                  // Kirim pesan ke tab aktif untuk menampilkan pop-up
+                  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                      if (tabs.length > 0) {
+                          chrome.scripting.executeScript({
+                              target: { tabId: tabs[0].id },
+                              func: displayCurrencyPopup,
+                              args: [amount, fromCurrency, convertedAmount, toCurrency, rate]
+                          });
+                      }
+                  });
+
                   sendResponse({ success: true, convertedAmount, rate });
               } else {
                   sendResponse({ success: false, error: "Conversion rate not found" });
@@ -227,9 +238,53 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
               console.error("Error fetching currency data:", error);
               sendResponse({ success: false, error: error.message });
           });
-        }
+
       return true;
-  });
+  }
+});
+
+// Fungsi untuk menampilkan pop-up hasil konversi
+function displayCurrencyPopup(amount, fromCurrency, convertedAmount, toCurrency, rate) {
+  const existingPopup = document.getElementById("currency-popup");
+  if (existingPopup) existingPopup.remove();
+
+  const div = document.createElement("div");
+  div.id = "currency-popup";
+  div.style.position = "fixed";
+  div.style.bottom = "20px";
+  div.style.right = "20px";
+  div.style.padding = "10px";
+  div.style.backgroundColor = "#1E1E2E";
+  div.style.border = "1px solid #ccc";
+  div.style.borderRadius = "8px";
+  div.style.color = "#fff";
+  div.style.boxShadow = "0 2px 5px rgba(0,0,0,0.3)";
+  div.style.zIndex = "10000";
+  div.style.minWidth = "300px";
+  div.style.fontFamily = "Arial, sans-serif";
+
+  div.innerHTML = `
+      <strong style="font-size: 16px; color: #a144db;">Currency Conversion</strong>
+      <p style="margin: 5px 0; font-size: 14px;"><strong>Amount:</strong> ${amount} ${fromCurrency}</p>
+      <p style="margin: 5px 0; font-size: 14px;"><strong>Converted:</strong> ${convertedAmount} ${toCurrency}</p>
+      <p style="margin: 5px 0; font-size: 14px;"><strong>Exchange Rate:</strong> 1 ${fromCurrency} = ${rate} ${toCurrency}</p>
+      <button id="close-currency-popup" style="
+          margin-top: 10px;
+          padding: 5px 10px;
+          background-color: #007BFF;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 14px;
+      ">Close</button>
+  `;
+
+  document.body.appendChild(div);
+  document.getElementById("close-currency-popup").addEventListener("click", () => div.remove());
+}
+
+
   
 
 
