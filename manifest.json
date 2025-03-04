@@ -3,11 +3,12 @@
     "name": "Multitasking Sidebar",
     "version": "1.0",
     "description": "A sidebar with a to-do list and word definition feature",
-    "permissions": ["storage", "contextMenus", "scripting", "activeTab"],
+    "permissions": ["storage", "contextMenus", "scripting", "activeTab","background"],
     "host_permissions": [
       "https://api.dictionaryapi.dev/*",
       "https://api.ipgeolocation.io/*",
-      "https://api.openweathermap.org/*"
+      "https://api.openweathermap.org/*",
+      "https://v6.exchangerate-api.com/*"
     ],
     "background": {
       "service_worker": "background.js",
