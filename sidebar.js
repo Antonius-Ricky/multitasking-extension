@@ -127,16 +127,30 @@ function showSidebar() {
         });
         
 
-        document.getElementById("currency-btn").addEventListener("click", async () => {
-            try {
-                await chrome.scripting.executeScript({
-                    target: { tabId: (await chrome.tabs.query({ active: true, currentWindow: true }))[0].id },
-                    files: ["dollar.js"]
-                });
-            } catch (error) {
-                console.error("Error injecting dollar.js:", error);
+        document.getElementById("currency-btn").addEventListener("click", () => {
+            const amount = prompt("Enter amount in USD:"); 
+            if (!amount || isNaN(amount)) {
+                alert("Please enter a valid number.");
+                return;
             }
+        
+            chrome.runtime.sendMessage({ 
+                action: "convertCurrency",
+                amount: parseFloat(amount), 
+                fromCurrency: "USD",
+                toCurrency: "IDR"
+            }, (response) => {
+                console.log("Currency conversion response:", response);
+            
+                if (response && response.success) {
+                    alert(`Converted Amount: ${response.convertedAmount} IDR\nExchange Rate: 1 USD = ${response.rate} IDR`);
+                } else {
+                    alert(`Failed to convert currency."}`);
+                }
+            });
+        
         });
+        
 
         chrome.storage.local.set({ sidebarOpen: true });
     }
