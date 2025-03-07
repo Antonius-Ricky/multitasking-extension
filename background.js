@@ -282,6 +282,14 @@ function displayCurrencyPopup(amount, fromCurrency, convertedAmount, toCurrency,
 
   document.body.appendChild(div);
   document.getElementById("close-currency-popup").addEventListener("click", () => div.remove());
+ 
+  setTimeout(() => {
+    const popup = document.getElementById("currency-popup");
+    if (popup) {
+        console.log("Menghapus pop-up setelah 3 detik...");
+        popup.remove();
+    }
+}, 5000); 
 }
 
 
