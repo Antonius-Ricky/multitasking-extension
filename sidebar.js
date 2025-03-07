@@ -101,10 +101,27 @@ function showSidebar() {
         });
         // Show Currency Converter Input
         document.getElementById("currency-btn").addEventListener("click", () => {
-            document.getElementById("currency-section").style.display = "block";
+            const currencySection = document.getElementById("currency-section");
+            // Toggle visibility
+        if (currencySection.style.display === "none" || currencySection.style.display === "") {
+        currencySection.style.display = "block"; // Show
+        } else {
+        currencySection.style.display = "none"; // Hide
+            }
         });
 
         // Handle Currency Conversion
+
+        document.getElementById("currency-section").innerHTML = `
+        <h3>Currency Converter</h3>
+        <input type="number" id="amount-input" placeholder="Enter amount">
+        <button id="swap-btn" class="swap-button">⇄ Swap</button>
+        <button id="convert-btn">Convert</button>
+        <div id="conversion-result"></div>
+        <p id="current-mode"><strong>Mode:</strong> USD → IDR</p>
+`;
+
+let currentMode = "USD_TO_IDR"; // Default mode
         document.getElementById("convert-btn").addEventListener("click", () => {
             const amountInput = document.getElementById("amount-input");
             const resultDiv = document.getElementById("conversion-result");
@@ -114,12 +131,21 @@ function showSidebar() {
                 resultDiv.innerHTML = "<p style='color: red;'>Please enter a valid amount.</p>";
                 return;
             }
+            let fromCurrency, toCurrency;
+            if (currentMode === "USD_TO_IDR") {
+                fromCurrency = "USD";
+                toCurrency = "IDR";
+            } else {
+                fromCurrency = "IDR";
+                toCurrency = "USD";
+            }
+        
 
             chrome.runtime.sendMessage({
                 action: "convertCurrency",
                 amount: amount,
-                fromCurrency: "USD",
-                toCurrency: "IDR"
+                fromCurrency: "fromCurrency",
+                toCurrency: "toCurrency"
             }, (response) => {
                 if (response && response.success) {
                     resultDiv.innerHTML = `
@@ -131,6 +157,12 @@ function showSidebar() {
                 }
             });
         });
+        // Handle Swap Function
+        document.getElementById("swap-btn").addEventListener("click", () => {
+        currentMode = currentMode === "USD_TO_IDR" ? "IDR_TO_USD" : "USD_TO_IDR";
+        document.getElementById("current-mode").innerHTML = 
+        `<strong>Mode:</strong> ${currentMode === "USD_TO_IDR" ? "USD → IDR" : "IDR → USD"}`;
+});
     }
 
     chrome.storage.local.set({ sidebarOpen: true });
