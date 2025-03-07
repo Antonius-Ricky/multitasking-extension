@@ -144,8 +144,8 @@ let currentMode = "USD_TO_IDR"; // Default mode
             chrome.runtime.sendMessage({
                 action: "convertCurrency",
                 amount: amount,
-                fromCurrency: "fromCurrency",
-                toCurrency: "toCurrency"
+                fromCurrency: fromCurrency,
+                toCurrency: toCurrency
             }, (response) => {
                 if (response && response.success) {
                     resultDiv.innerHTML = `
