@@ -41,7 +41,7 @@ async function getWeather() {
 
     const lat = ipData.latitude;
     const lon = ipData.longitude;
-    const API_KEY = '47e28d589c912d35b8aed44a6681c3c2';
+    const API_KEY = '';
 
     return await makeRequest(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`);
 }
@@ -59,4 +59,5 @@ async function displayParameters() {
 }
 
 document.addEventListener("DOMContentLoaded", displayParameters);
+
 
