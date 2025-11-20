@@ -28,7 +28,7 @@ async function makeRequest(url) {
 }
 
 async function getIP() {
-    const API_KEY = 'c5353e5225f64d51895f9dde3389ca97';
+    const API_KEY = '';
     return await makeRequest(`https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}`);
 }
 
@@ -59,3 +59,4 @@ async function displayParameters() {
 }
 
 document.addEventListener("DOMContentLoaded", displayParameters);
+
